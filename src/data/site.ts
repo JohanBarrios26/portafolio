@@ -12,7 +12,9 @@ export const site = {
   email: "farith2699@gmail.com",
   github: "https://github.com/JohanBarrios26",
   linkedin: "https://www.linkedin.com/in/johan-barrios-08832326b/",
-  otherLinks: [] as { label: string; href: string }[],
+  otherLinks: [
+    { label: "Kairos (servicios)", href: "https://kairos-web-5xq3.vercel.app" },
+  ] as { label: string; href: string }[],
   // Archivos opcionales en public/: si existen, aparecen solos en la web.
   photoFile: "foto.png",
   cvFile: "cv.pdf",
