@@ -2,6 +2,8 @@
 
 Portafolio personal hecho con **Next.js**, **TypeScript** y **Tailwind CSS**, con tema oscuro.
 
+Web publicada: https://portafolio-gules-eta.vercel.app (se actualiza sola con cada cambio en `main`).
+
 Todo el contenido (textos, proyectos y herramientas) está en [`src/data/site.ts`](src/data/site.ts). La foto y el CV se colocan en `public/` como `foto.png` y `cv.pdf`.
 
 ## Ejecutarlo
