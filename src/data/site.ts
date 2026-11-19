@@ -102,6 +102,17 @@ export const experience = [
     ],
   },
   {
+    role: "Ingeniero Asistente de Sistemas (jornada parcial)",
+    org: "Technored SAS",
+    period: "Ene 2023 – Jul 2024",
+    points: [
+      "Hice análisis de datos para apoyar decisiones estratégicas.",
+      "Participé en el desarrollo de software, verificando que cumpliera los objetivos del negocio.",
+      "Di soporte técnico en hardware, software y redes, con mantenimiento preventivo y correctivo de equipos.",
+      "Gestioné redes y seguridad informática, escribí documentación técnica y capacité a usuarios.",
+    ],
+  },
+  {
     role: "Instructor de Alfabetización Digital y Uso de las TIC",
     org: "UNIMINUTO",
     period: "Feb 2024 – May 2024",
