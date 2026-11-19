@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
+import Link from "next/link";
 import Spotlight from "@/components/Spotlight";
 import {
   certifications,
@@ -186,15 +187,23 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-5 flex gap-6 text-sm font-semibold">
+                    {p.note && <p className="mt-4 text-sm text-muted">{p.note}</p>}
+                    <p className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+                      {p.caseStudy && (
+                        <Link href={p.caseStudy} className={linkUnderline}>
+                          Leer el caso de estudio
+                        </Link>
+                      )}
                       {p.demo && (
                         <a href={p.demo} target="_blank" rel="noopener noreferrer" className={linkUnderline}>
                           Ver demo
                         </a>
                       )}
-                      <a href={p.code} target="_blank" rel="noopener noreferrer" className={linkUnderline}>
-                        Ver código
-                      </a>
+                      {p.code && (
+                        <a href={p.code} target="_blank" rel="noopener noreferrer" className={linkUnderline}>
+                          Ver código
+                        </a>
+                      )}
                     </p>
                   </div>
                 </div>

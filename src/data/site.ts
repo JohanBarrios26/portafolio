@@ -35,8 +35,10 @@ export type Project = {
   year: string;
   description: string;
   tech: string[];
-  code: string;
+  code?: string;
   demo?: string;
+  caseStudy?: string;
+  note?: string;
   featured?: boolean;
 };
 
@@ -50,6 +52,15 @@ export const projects: Project[] = [
     code: "https://github.com/JohanBarrios26/LifeOS",
     demo: "https://life-os-green-ten.vercel.app",
     featured: true,
+  },
+  {
+    title: "Traductor Tikuna–español",
+    year: "2026",
+    description:
+      "Motor de consulta y análisis para una lengua amazónica con pocos recursos digitales. Cada resultado indica si es documentado o inferido y de dónde sale. Incluye auditoría de datos, evaluación honesta y pruebas automáticas.",
+    tech: ["Python", "Lingüística computacional", "Pruebas", "CI"],
+    caseStudy: "/traductor-tikuna",
+    note: "Repositorio privado: los datos tienen licencias de terceros.",
   },
   {
     title: "JUCUM Leticia",
