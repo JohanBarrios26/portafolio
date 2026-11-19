@@ -84,11 +84,25 @@ button:focus-visible {
   animation-delay: 0.24s;
 }
 
+/* Punto de disponibilidad */
+@keyframes ping-soft {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 181 71 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgb(255 181 71 / 0);
+  }
+}
+.dot-live {
+  animation: ping-soft 2s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .rise {
+  .rise,
+  .dot-live {
     animation: none;
   }
 }

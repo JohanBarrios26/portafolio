@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 // Foco de luz ámbar que sigue al puntero dentro de la portada.
 // Sin movimiento si el usuario prefiere reducir animaciones.
 export default function Spotlight({ children }: { children: React.ReactNode }) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -34,8 +34,8 @@ export default function Spotlight({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <header ref={ref} className="spotlight relative overflow-hidden">
+    <div ref={ref} className="spotlight relative overflow-hidden">
       {children}
-    </header>
+    </div>
   );
 }

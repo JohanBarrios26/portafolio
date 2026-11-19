@@ -14,9 +14,16 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Johan Barrios | Desarrollador full-stack",
+  title: "Johan Barrios | Ingeniero de Sistemas, software y datos",
   description:
-    "Portafolio de Johan Barrios: sitios web, APIs y aplicaciones full-stack.",
+    "Portafolio de Johan Barrios, Ingeniero de Sistemas en Girardot, Colombia: desarrollo web, bases de datos y análisis de datos. Proyectos, experiencia y CV.",
+  openGraph: {
+    title: "Johan Barrios | Ingeniero de Sistemas",
+    description:
+      "Desarrollo software y convierto datos en decisiones. Proyectos, experiencia y CV.",
+    locale: "es_CO",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
