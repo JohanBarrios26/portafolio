@@ -13,7 +13,7 @@ export const site = {
   github: "https://github.com/JohanBarrios26",
   linkedin: "https://www.linkedin.com/in/johan-barrios-08832326b/",
   otherLinks: [
-    { label: "Kairos (servicios)", href: "https://kairos-web-5xq3.vercel.app" },
+    { label: "REDIX (servicios)", href: "https://kairos-web-5xq3.vercel.app" },
   ] as { label: string; href: string }[],
   // Archivos opcionales en public/: si existen, aparecen solos en la web.
   photoFile: "foto.png",
