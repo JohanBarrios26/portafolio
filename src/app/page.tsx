@@ -11,6 +11,7 @@ import {
   projects,
   site,
   stack,
+  type Project,
 } from "@/data/site";
 
 const wrap = "mx-auto w-full max-w-5xl px-6 sm:px-10";
@@ -25,19 +26,54 @@ const linkUnderline =
 const hasPublic = (file: string) =>
   existsSync(path.join(process.cwd(), "public", file));
 
+function Story({ s }: { s: NonNullable<Project["story"]> }) {
+  const rows = [
+    ["Reto", s.problem],
+    ["Solución", s.solution],
+    ["Resultado", s.result],
+  ] as const;
+  return (
+    <dl className="mt-5 space-y-2 text-[0.95rem]">
+      {rows.map(([k, v]) => (
+        <div key={k} className="grid grid-cols-[5.5rem_1fr] gap-3">
+          <dt className="font-semibold text-amber">{k}</dt>
+          <dd className="text-muted">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export default function Home() {
   const hasPhoto = hasPublic(site.photoFile);
   const hasCv = hasPublic(site.cvFile);
   const featured = projects.find((p) => p.featured);
-  const others = projects.filter((p) => !p.featured);
+  const others = projects.filter((p) => !p.featured && !p.minor);
+  const minors = projects.filter((p) => p.minor);
   const links = [
     { label: "LinkedIn", href: site.linkedin },
     { label: "GitHub", href: site.github },
     ...site.otherLinks,
   ].filter((l) => l.href);
 
+  // Datos estructurados para buscadores: quién eres, qué haces y dónde te encuentran.
+  const personJsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    jobTitle: site.role,
+    description: site.headline,
+    url: site.siteUrl,
+    image: `${site.siteUrl}/${site.photoFile}`,
+    address: { "@type": "PostalAddress", addressLocality: "Girardot", addressCountry: "CO" },
+    alumniOf: [{ "@type": "CollegeOrUniversity", name: "UNIMINUTO" }, { "@type": "Organization", name: "SENA" }],
+    knowsAbout: ["Python", "SQL", "JavaScript", "TypeScript", "React", "Next.js", "Power BI", "Análisis de datos"],
+    sameAs: [site.github, site.linkedin],
+  }).replace(/</g, "\\u003c");
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: personJsonLd }} />
       <header className="sticky top-0 z-20 border-b border-line/70 bg-ink/80 backdrop-blur">
         <nav className={`${wrap} flex items-center justify-between py-4`}>
           <a href="#inicio" className="font-display text-lg font-bold">
@@ -61,7 +97,11 @@ export default function Home() {
       </header>
 
       <Spotlight>
-        <div id="inicio" className={`${wrap} pb-20 pt-16 sm:pb-28 sm:pt-24`}>
+        <div
+          id="inicio"
+          className={`${wrap} grid items-center gap-12 pb-20 pt-14 sm:pb-28 sm:pt-20 lg:grid-cols-[1fr_auto]`}
+        >
+          <div>
           <p className="rise inline-flex items-center gap-3 rounded-full border border-line bg-surface/60 px-4 py-2 text-sm">
             <span className="dot-live h-2.5 w-2.5 rounded-full bg-amber" aria-hidden="true" />
             {site.availability}
@@ -69,7 +109,7 @@ export default function Home() {
           <p className="rise rise-2 mt-8 text-lg text-muted">
             {site.role}, {site.location}
           </p>
-          <h1 className="rise rise-2 mt-2 font-display text-[clamp(3.5rem,13vw,9.5rem)] font-extrabold leading-[0.9] tracking-tight">
+          <h1 className="rise rise-2 mt-2 font-display text-[clamp(3rem,9.5vw,7rem)] font-extrabold leading-[0.95] tracking-tight">
             {site.name}
           </h1>
           <p className="rise rise-3 mt-8 max-w-2xl font-display text-2xl font-semibold leading-snug sm:text-3xl">
@@ -77,6 +117,9 @@ export default function Home() {
           </p>
           <p className="rise rise-3 mt-5 max-w-xl text-lg leading-relaxed text-muted">
             {site.tagline}
+          </p>
+          <p className="rise rise-3 mt-5 max-w-xl border-l-2 border-amber pl-4 text-lg">
+            {site.seeking}
           </p>
           <div className="rise rise-3 mt-10 flex flex-wrap gap-4">
             <a href={`mailto:${site.email}`} className={btnPrimary}>
@@ -91,6 +134,17 @@ export default function Home() {
               Ver proyectos
             </a>
           </div>
+          </div>
+          {hasPhoto && (
+            <Image
+              src={`/${site.photoFile}`}
+              alt={`Foto de ${site.name}`}
+              width={288}
+              height={288}
+              priority
+              className="rise rise-2 hidden h-auto w-72 rounded-3xl border border-line object-cover lg:block"
+            />
+          )}
         </div>
       </Spotlight>
 
@@ -112,7 +166,8 @@ export default function Home() {
         <section id="proyectos" className={`${wrap} scroll-mt-20 py-24`}>
           <h2 className={h2}>Proyectos</h2>
           <p className="mt-4 max-w-xl text-muted">
-            Software que funciona y está publicado. Cada uno tiene su código abierto en GitHub.
+            Software real y publicado. Cada proyecto cuenta el problema, la solución y el resultado. Los que
+            tienen código abierto enlazan a GitHub; el traductor tikuna es privado y tiene su propio caso de estudio.
           </p>
 
           {featured && (
@@ -121,6 +176,7 @@ export default function Home() {
                 <p className="text-sm text-amber">Proyecto destacado</p>
                 <h3 className="mt-2 font-display text-4xl font-bold">{featured.title}</h3>
                 <p className="mt-4 text-lg leading-relaxed text-muted">{featured.description}</p>
+                {featured.story && <Story s={featured.story} />}
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {featured.tech.map((t) => (
                     <li key={t} className="rounded-full border border-line px-3 py-1 text-sm">
@@ -149,7 +205,7 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <div className="flex justify-center gap-4 sm:gap-6">
+              <div className="flex items-start justify-center gap-4 sm:gap-6">
                 <Image
                   src="/lifeos-panel.png"
                   alt="Panel principal de LifeOS con saldo disponible y movimientos recientes"
@@ -180,6 +236,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="max-w-md text-muted">{p.description}</p>
+                    {p.story && <Story s={p.story} />}
                     <ul className="mt-4 flex flex-wrap gap-2">
                       {p.tech.map((t) => (
                         <li key={t} className="rounded-full border border-line px-3 py-1 text-sm">
@@ -210,6 +267,23 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          {minors.length > 0 && (
+            <p className="mt-8 text-muted">
+              Más proyectos de aprendizaje en{" "}
+              <a href={site.github} target="_blank" rel="noopener noreferrer" className={linkUnderline}>
+                mi GitHub
+              </a>
+              {minors.map((m) => (
+                <span key={m.title}>
+                  {", como "}
+                  <a href={m.code} target="_blank" rel="noopener noreferrer" className={linkUnderline}>
+                    {m.title}
+                  </a>
+                </span>
+              ))}
+              .
+            </p>
+          )}
         </section>
 
         <section id="experiencia" className={`${wrap} scroll-mt-20 py-24`}>
@@ -283,7 +357,7 @@ export default function Home() {
                 alt={`Foto de ${site.name}`}
                 width={320}
                 height={320}
-                className="h-auto w-56 rounded-2xl border border-line object-cover sm:w-64"
+                className="h-auto w-56 rounded-2xl border border-line object-cover sm:w-64 lg:hidden"
               />
             )}
             <div className="max-w-xl space-y-5 text-lg text-muted">

@@ -8,6 +8,9 @@ export const site = {
   tagline:
     "Construyo sitios web y herramientas que automatizan procesos. Vengo de coordinar equipos y administrar bases de datos, así que programo pensando en cómo trabaja la gente de verdad.",
   availability: "Disponible para nuevas oportunidades",
+  // Lo que buscas, en una línea: quien revisa tu portafolio debe saber a qué rol apuntas.
+  seeking: "Busco: desarrollador de software o analista de datos junior, en Colombia o en remoto.",
+  siteUrl: "https://portafolio-gules-eta.vercel.app",
   location: "Girardot, Colombia",
   email: "farith2699@gmail.com",
   github: "https://github.com/JohanBarrios26",
@@ -42,6 +45,10 @@ export type Project = {
   caseStudy?: string;
   note?: string;
   featured?: boolean;
+  // Problema → solución → resultado, en una línea cada uno.
+  story?: { problem: string; solution: string; result: string };
+  // Los proyectos "minor" se muestran compactos al final.
+  minor?: boolean;
 };
 
 export const projects: Project[] = [
@@ -54,6 +61,11 @@ export const projects: Project[] = [
     code: "https://github.com/JohanBarrios26/LifeOS",
     demo: "https://life-os-green-ten.vercel.app",
     featured: true,
+    story: {
+      problem: "Registrar gastos y hábitos tiene que tomar segundos, sin cuentas ni nube.",
+      solution: "Entrada rápida en español, datos guardados en el dispositivo (IndexedDB) y app instalable (PWA).",
+      result: "Funciona sin conexión y genera un reporte mensual descargable en Excel o PDF.",
+    },
   },
   {
     title: "Traductor Tikuna–español",
@@ -63,6 +75,11 @@ export const projects: Project[] = [
     tech: ["Python", "Lingüística computacional", "Pruebas", "CI"],
     caseStudy: "/traductor-tikuna",
     note: "Repositorio privado: los datos tienen licencias de terceros.",
+    story: {
+      problem: "En una lengua que el usuario no puede verificar, un traductor que inventa es peor que ninguno.",
+      solution: "Cada resultado indica si es documentado o inferido, con su confianza y su evidencia.",
+      result: "55,6 % de las apariciones con candidato documentado, medido con datos no vistos, y 44 pruebas.",
+    },
   },
   {
     title: "JUCUM Leticia",
@@ -71,6 +88,12 @@ export const projects: Project[] = [
       "Sitio web bilingüe para una organización del Amazonas colombiano. El equipo edita el contenido sin programar, carga rápido con conexiones lentas y cuida el SEO y la accesibilidad.",
     tech: ["Astro", "Sanity CMS", "i18n", "SEO"],
     code: "https://github.com/JohanBarrios26/jucum-leticia-web",
+    demo: "https://jucumleticia.org",
+    story: {
+      problem: "Quienes lo administran no programan, y gran parte del público entra con conexiones lentas.",
+      solution: "Sitio estático en Astro con un panel en español (Sanity) para editar sin tocar código.",
+      result: "Sitio bilingüe publicado, de cerca de 1 MB, con contenido editable por el propio equipo.",
+    },
   },
   {
     title: "Tienda en línea",
@@ -79,6 +102,11 @@ export const projects: Project[] = [
       "Comercio electrónico con catálogo, carrito, pago con PayPal y panel de administración, sobre una arquitectura MVC propia y base de datos MySQL.",
     tech: ["PHP", "MySQL", "PayPal", "MVC"],
     code: "https://github.com/JohanBarrios26/Pagina_Tienda",
+    story: {
+      problem: "Vender en línea con un pago real y un panel para gestionar productos y pedidos.",
+      solution: "MVC propio en PHP, base de datos MySQL y pago con PayPal.",
+      result: "Catálogo, carrito y panel de administración completos, con consultas SQL protegidas.",
+    },
   },
   {
     title: "Mi primer proyecto Android",
@@ -87,6 +115,7 @@ export const projects: Project[] = [
       "Mi primera app móvil, hecha con Java para Android. El punto de partida de todo lo demás.",
     tech: ["Java", "Android"],
     code: "https://github.com/JohanBarrios26/MiPrimerProyectoAndroid",
+    minor: true,
   },
 ];
 

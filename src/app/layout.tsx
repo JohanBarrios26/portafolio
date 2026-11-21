@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { site } from "@/data/site";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -14,15 +15,38 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.siteUrl),
   title: "Johan Barrios | Ingeniero de Sistemas, software y datos",
   description:
     "Portafolio de Johan Barrios, Ingeniero de Sistemas en Girardot, Colombia: desarrollo web, bases de datos y análisis de datos. Proyectos, experiencia y CV.",
+  keywords: [
+    "Johan Barrios",
+    "Ingeniero de Sistemas",
+    "desarrollador de software junior",
+    "analista de datos",
+    "Girardot",
+    "Colombia",
+    "Python",
+    "SQL",
+    "React",
+    "Next.js",
+  ],
+  authors: [{ name: site.name, url: site.siteUrl }],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Johan Barrios | Ingeniero de Sistemas",
     description:
       "Desarrollo software y convierto datos en decisiones. Proyectos, experiencia y CV.",
+    url: "/",
+    siteName: "Portafolio de Johan Barrios",
     locale: "es_CO",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Johan Barrios | Ingeniero de Sistemas",
+    description: "Desarrollo software y convierto datos en decisiones.",
   },
 };
 
